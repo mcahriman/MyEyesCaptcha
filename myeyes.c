@@ -96,8 +96,6 @@ int main(int argc, char** argv) {
 
 
   fclose(gifout);
-
-  /* Destroy the image in memory. */
   gdImageDestroy(im);
   gdImageDestroy(mask);
 
