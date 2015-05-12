@@ -86,8 +86,6 @@ t_captcha getCaptchaBuf( int width, int height,  int framesCount, int frameRate,
 
 
   fclose(gifout);
-
-  /* Destroy the image in memory. */
   gdImageDestroy(im);
   gdImageDestroy(mask);
   free (maskBuffer);
