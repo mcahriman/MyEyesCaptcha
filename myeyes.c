@@ -1,16 +1,17 @@
-/* Bring in gd library functions */
 #include "gd.h"
-
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <gdfontg.h>
 #include <string.h>
 #include "assert.h"
-int main(int argc, char** argv) {
+#include "myeyes.h"
+
+t_captcha getCaptchaBuf( int width, int height,  int framesCount, int frameRate, char* text) {
   srand(time(NULL));
   /* Declare the image */
   gdImagePtr im, mask, maskEnlarged;
+  t_captcha ret;
   FILE *gifout;
   char *imageBuffer;
   char *maskBuffer, *enlargedMaskBuffer;
@@ -19,26 +20,17 @@ int main(int argc, char** argv) {
   int x, y, i, xp, yp, textLength, textHeight;
   int colors[10];
   int color;
-  int framesCount;
-  char* text;
-
-  int width = 200;
-  int height = 60;
-  framesCount = 64;
 
   gifout = open_memstream(&imageBuffer, &imageBufferSize);
-
   im = gdImageCreate(width, height);
   maskEnlarged = gdImageCreateTrueColor(width, height);
+
 
   //generate color table
   for (i = 0; i < 10; i++) {
     color = (rand() % 25) * 10;
     colors[i] = gdImageColorAllocate(im, color, color, color);
   }
-
-  assert(argc>1);
-  text = argv[1];
 
   textLength = gdFontGetGiant()->w * strlen(text);
   textHeight = gdFontGetGiant()->h;
@@ -59,9 +51,7 @@ int main(int argc, char** argv) {
   for(y = 0; y < maskEnlarged->sy; y++) {
     for(x = 0; x < maskEnlarged->sx; x++ ) {
       enlargedMaskBuffer[x*y] = rand()%10;
-      //printf("%i", gdImageGetPixel(maskEnlarged, x,y));
     }
-    //printf("\n");
   }
 
   //animate it
@@ -91,7 +81,7 @@ int main(int argc, char** argv) {
       }
     }
 
-    gdImageGifAnimAdd(im, gifout, 0, 0, 0, 5, 1, NULL);
+    gdImageGifAnimAdd(im, gifout, 0, 0, 0, frameRate, 1, NULL);
   }
 
 
@@ -100,7 +90,12 @@ int main(int argc, char** argv) {
   /* Destroy the image in memory. */
   gdImageDestroy(im);
   gdImageDestroy(mask);
+  free (maskBuffer);
+  free (enlargedMaskBuffer);
 
-  //stdout for now
-  fwrite(imageBuffer, sizeof(char), imageBufferSize, stdout);
+  ret.buf = imageBuffer;
+  ret.width = width;
+  ret.size = imageBufferSize;
+
+  return ret;
 }
