@@ -3,12 +3,12 @@ MyEyesCaptcha
 Creates simple Gif89a Captcha, with static noise to stdout
 99.91% ocrproof, 42% humanproof.
 
-Only stdin output is supported TFN ¯\_(ツ)_/¯
+Only stdin output is supported TFN ¯\\_(ツ)_/¯
 
 build: cc myeyes.c myeyestofile.c -lgd -o myeyes
 
 usage:
-./myeyes -t <TEXT>
+./myeyes -t \<TEXT\>
 
 Another options:
 
@@ -19,4 +19,4 @@ c: frame count - min MIN_FRAME_COUNT, max - MAX_FRAME_COUNT;
 t: text - not larger than MAX_CHARS or it will be truncated
 
 Todo:
-Add Makefile ¯\_(ツ)_/¯
+Add todo
