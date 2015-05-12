@@ -16,7 +16,6 @@ int main(int argc, char** argv) {
   int frameRate = DEFAULT_FRAME_RATE;
   int framesCount = DEFAULT_FRAME_COUNT;
   int textSet = FALSE;
-  int output_stout = FALSE;
   char* path = NULL;
   char text[MAX_CHARS + 1];
 
@@ -71,6 +70,10 @@ int main(int argc, char** argv) {
   }
 
 
+  if(!textSet) {
+    fprintf( stderr, "Text is not set" );
+    exit(1);
+  }
 
   printf("Width = %i, Height: %i; Rate: %i; Count: %i; Text: %s; Path: %s\n",
       width, height, frameRate, framesCount, text, path);
@@ -87,6 +90,6 @@ int main(int argc, char** argv) {
   fwrite(captcha.buf, captcha.size, 1, fout);
   fclose(fout);
 
-
+  return 0; //success
 
 }

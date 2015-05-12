@@ -15,9 +15,8 @@ t_captcha getCaptchaBuf( int width, int height,  int framesCount, int frameRate,
   FILE *gifout;
   char *imageBuffer;
   char *maskBuffer, *enlargedMaskBuffer;
-  int maskbufferlength;
   size_t imageBufferSize;
-  int x, y, i, xp, yp, textLength, textHeight;
+  int x, y, i, textLength, textHeight;
   int colors[10];
   int color;
 
@@ -34,8 +33,6 @@ t_captcha getCaptchaBuf( int width, int height,  int framesCount, int frameRate,
 
   textLength = gdFontGetGiant()->w * strlen(text);
   textHeight = gdFontGetGiant()->h;
-  xp = width/2 - textLength / 2;
-  yp = height/2 - textHeight / 2;
 
   maskBuffer = malloc(textLength*textHeight);
   enlargedMaskBuffer = malloc(width*height);
@@ -45,7 +42,7 @@ t_captcha getCaptchaBuf( int width, int height,  int framesCount, int frameRate,
     maskBuffer[i] = colors[ rand() % 2 ];
   }
   //add text
-  gdImageString(mask, gdFontGetGiant(), 0, 0, text,  gdImageColorAllocate(im, 255, 255, 255));
+  gdImageString(mask, gdFontGetGiant(), 0, 0, (unsigned char*) text,  gdImageColorAllocate(im, 255, 255, 255));
   gdImageCopyResized(maskEnlarged, mask, 0,0,0,0, width, height, textLength, textHeight);
 
   for(y = 0; y < maskEnlarged->sy; y++) {
