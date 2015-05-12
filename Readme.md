@@ -5,8 +5,18 @@ Creates simple Gif89a Captcha, with static noise to stdout
 
 Only stdin output is supported TFN ¯\_(ツ)_/¯
 
-build: cc -lgd -o ./myeyescaptcha 
+build: cc myeyes.c myeyestofile.c -lgd -o myeyes
 
 usage:
-./myeyescaptcha <text> > file.gif 
+./myeyes -t <TEXT>
 
+Another options:
+
+w: width - max width is MAX_WIDTH;
+h: height - max is MAX_HEIGHT;
+r: frame rate - 1-... (1/100ms * r)
+c: frame count - min MIN_FRAME_COUNT, max - MAX_FRAME_COUNT;
+t: text - not larger than MAX_CHARS or it will be truncated
+
+Todo:
+Add Makefile ¯\_(ツ)_/¯

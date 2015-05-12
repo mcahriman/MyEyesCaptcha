@@ -1,0 +1,14 @@
+#define MAX_WIDTH 1024
+#define MAX_HEIGHT 1024
+#define MIN_FRAME_COUNT 5
+#define MAX_FRAME_COUNT 200
+
+#define MAX_CHARS 15
+
+#define DEFAULT_WIDTH 128;
+#define DEFAULT_HEIGHT 64;
+#define DEFAULT_FRAME_RATE 2;
+#define DEFAULT_FRAME_COUNT 24;
+
+#define FALSE 0;
+#define TRUE 1;
