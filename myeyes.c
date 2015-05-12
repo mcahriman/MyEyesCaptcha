@@ -84,6 +84,7 @@ t_captcha getCaptchaBuf( int width, int height,  int framesCount, int frameRate,
     gdImageGifAnimAdd(im, gifout, 0, 0, 0, frameRate, 1, NULL);
   }
 
+  gdImageGifAnimEnd(gifout);
 
   fclose(gifout);
   gdImageDestroy(im);
